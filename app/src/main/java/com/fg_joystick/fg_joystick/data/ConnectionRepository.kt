@@ -1,6 +1,6 @@
-package com.example.fg_joystick.data
+package com.fg_joystick.fg_joystick.data
 
-import com.example.fg_joystick.data.model.ConnectedUser
+import com.fg_joystick.fg_joystick.data.model.ConnectedUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

@@ -12,4 +12,6 @@
     <string name="connect">Connect</string>
     <string name="ip">IP</string>
     <string name="port">Port</string>
+    <string name="joystick">joystick</string>
+    <string name="disconnect">Disconnect</string>
 </resources>

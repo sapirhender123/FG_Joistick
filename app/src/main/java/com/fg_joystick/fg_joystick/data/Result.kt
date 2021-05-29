@@ -1,4 +1,4 @@
-package com.example.fg_joystick.data
+package com.fg_joystick.fg_joystick.data
 
 /**
  * A generic class that holds a value with its loading status.

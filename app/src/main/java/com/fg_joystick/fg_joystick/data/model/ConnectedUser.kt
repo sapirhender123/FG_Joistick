@@ -1,4 +1,4 @@
-package com.example.fg_joystick.data.model
+package com.fg_joystick.fg_joystick.data.model
 
 /**
  * Data class that captures user information for logged in users retrieved from connectRepository
