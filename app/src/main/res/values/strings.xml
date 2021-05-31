@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FG_Joystick</string>
+    <!-- Strings related to connect -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_ip">Not a valid IP address</string>
+    <string name="invalid_port">Port must be a number in range [0,65535]</string>
+    <string name="connection_failed">"Connection failed"</string>
+    <string name="connect">Connect</string>
+    <string name="ip">IP</string>
+    <string name="port">Port</string>
+    <string name="joystick">joystick</string>
+    <string name="disconnect">Disconnect</string>
+</resources>
