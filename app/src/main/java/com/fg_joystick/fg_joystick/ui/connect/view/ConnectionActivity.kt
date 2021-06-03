@@ -61,11 +61,11 @@ class ConnectionActivity : AppCompatActivity() {
             }
             if (connectionResult.success != null) {
                 updateUiWithUser(connectionResult.success)
+                setResult(Activity.RESULT_OK)
+                //Complete and destroy connect activity once successful
+                finish()
             }
-            setResult(Activity.RESULT_OK)
 
-            //Complete and destroy connect activity once successful
-            finish()
         })
 
         ip.afterTextChanged {
