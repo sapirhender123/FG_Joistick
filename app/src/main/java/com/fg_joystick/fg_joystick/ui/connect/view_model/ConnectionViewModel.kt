@@ -68,7 +68,7 @@ class ConnectionViewModel(private val connectionRepository: ConnectionRepository
             return false
         }
 
-        val port = portStr.toInt()
-        return 0 < port && port < 2.0.pow(16.0) - 1
+        val port : Int = portStr.toIntOrNull() ?: return false
+        return 0 < port!! && port < 2.0.pow(16.0) - 1
     }
 }
