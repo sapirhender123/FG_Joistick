@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fg_joystick.fg_joystick.R
-import com.fg_joystick.fg_joystick.data.ConnectionDataSource
+import com.fg_joystick.fg_joystick.data.Client
 import com.fg_joystick.fg_joystick.data.Result
 import com.fg_joystick.fg_joystick.ui.connect.view.ConnectedUserView
 import com.fg_joystick.fg_joystick.ui.connect.view.ConnectionFormState
@@ -13,7 +13,7 @@ import com.fg_joystick.fg_joystick.ui.connect.view.ConnectionResult
 import kotlin.math.pow
 
 
-class ConnectionViewModel(private val connectionDataSource: ConnectionDataSource) : ViewModel() {
+class ConnectionViewModel(private val client: Client) : ViewModel() {
 
     private val _connectionForm = MutableLiveData<ConnectionFormState>()
     val connectionFormState: LiveData<ConnectionFormState> = _connectionForm
@@ -23,7 +23,7 @@ class ConnectionViewModel(private val connectionDataSource: ConnectionDataSource
 
     fun connect(ip: String, port: String) {
         // can be launched in a separate asynchronous job
-        val result = connectionDataSource.connect(ip, port)
+        val result = client.connect(ip, port)
 
         if (result is Result.Success) {
             _connectionResult.value =
