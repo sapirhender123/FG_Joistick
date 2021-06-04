@@ -3,6 +3,7 @@ package com.fg_joystick.fg_joystick.data
 import com.fg_joystick.fg_joystick.data.model.ConnectedUser
 import java.io.IOException
 import java.io.PrintWriter
+import java.net.InetSocketAddress
 import java.net.Socket
 import java.util.concurrent.*
 
@@ -29,8 +30,8 @@ class Client {
         mainThread = Executors.newSingleThreadExecutor()
         val future : Future<Result<ConnectedUser>>? = mainThread!!.submit(Callable {
             return@Callable  try {
-                socket = Socket(ip, portStr.toInt())
-                // TODO : how do you know if ip and socket correct?
+                socket = Socket()
+                socket!!.connect(InetSocketAddress(ip, portStr.toInt()), 1000)
                 writer = PrintWriter(socket!!.getOutputStream())
 
                 threadPool = Executors.newFixedThreadPool(5)
