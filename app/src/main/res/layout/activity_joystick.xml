@@ -51,4 +51,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.433" />
 
+    <TextView
+        android:id="@+id/Rudder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rudder"
+        android:textColor="#E1A2E1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699" />
+
+    <TextView
+        android:id="@+id/Throttle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/throttle"
+        android:textColor="#E1A2E1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.844" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

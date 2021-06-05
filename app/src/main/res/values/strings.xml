@@ -14,4 +14,6 @@
     <string name="port">Port</string>
     <string name="joystick">joystick</string>
     <string name="disconnect">Disconnect</string>
+    <string name="rudder">Rudder</string>
+    <string name="throttle">Throttle</string>
 </resources>

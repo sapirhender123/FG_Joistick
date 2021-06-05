@@ -14,7 +14,7 @@ class ConnectionViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ConnectionViewModel::class.java)) {
             return ConnectionViewModel(
-                client = Client()
+                client = Client
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
