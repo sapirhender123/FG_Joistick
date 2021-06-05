@@ -39,6 +39,7 @@ class ConnectionViewModel(private val client: Client) : ViewModel() {
     }
 
     fun connectionDataChanged(ip: String, port: String) {
+        // Check validation of IP and port
         if (!isIPValid(ip)) {
             _connectionForm.value =
                 ConnectionFormState(

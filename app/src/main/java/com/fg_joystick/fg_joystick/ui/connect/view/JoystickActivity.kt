@@ -51,7 +51,7 @@ class JoystickActivity : AppCompatActivity() {
             JoystickViewModelFactory()
         ).get(JoystickViewModel::class.java)
 
-        // Get screen metrics
+        // Get screen metrics according to android version
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             val display = display
             display?.getRealMetrics(metrics)
@@ -100,6 +100,7 @@ class JoystickActivity : AppCompatActivity() {
             }
         })
 
+        // Implementation result of moving the throttle seek bar
         seekBarThrottle.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 // TODO Auto-generated method stub
@@ -116,12 +117,13 @@ class JoystickActivity : AppCompatActivity() {
                 progress: Int,
                 fromUser: Boolean
             ) {
-                // [0, 1]
+                // The seek bar of throttle include numbers in the range [0, 1]
                 Throttle.text = "Throttle: " + progress / 100.0f
                 joystickViewModel.setThrottle(progress / 100.0f)
             }
         })
 
+        // Implementation result of moving the rudder seek bar
         seekBarRudder.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 // TODO Auto-generated method stub
@@ -137,13 +139,15 @@ class JoystickActivity : AppCompatActivity() {
                 progress: Int,
                 fromUser: Boolean
             ) {
-                // [-1, 1]
-                // 0 -> progress=100
+                // // The seek bar of rudder include numbers in the range [-1, 1]
+                // 0 -> progress = 100
+                // calculate the relative progress
                 Rudder.text = "Rudder: " + ((progress - 100) / 100.0f)
                 joystickViewModel.setRudder((progress - 100) / 100.0f)
             }
         })
 
+        // Define disconnect button functionality and define it will return to the previous activity
         Disconnect.setOnClickListener {
             joystickViewModel.disconnect()
             val switchActivityIntent = Intent(this, ConnectionActivity::class.java)

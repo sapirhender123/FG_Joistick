@@ -5,5 +5,4 @@ package com.fg_joystick.fg_joystick.ui.connect.view
  */
 data class ConnectedUserView(
         val displayName: String
-        //... other data fields that may be accessible to the UI
 )

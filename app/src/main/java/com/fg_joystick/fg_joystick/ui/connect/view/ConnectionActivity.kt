@@ -24,11 +24,13 @@ class ConnectionActivity : AppCompatActivity() {
 
     private lateinit var connectionViewModel: ConnectionViewModel
 
+    // Init the app
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_connect)
 
+        // initialize few fields
         val ip = findViewById<EditText>(R.id.IP)
         val port = findViewById<EditText>(R.id.Port)
         val connect = findViewById<Button>(R.id.connect)
@@ -93,6 +95,7 @@ class ConnectionActivity : AppCompatActivity() {
                 false
             }
 
+            // Set a listener to click on the connect button
             connect.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 connectionViewModel.connect(ip.text.toString(), port.text.toString())
@@ -100,10 +103,10 @@ class ConnectionActivity : AppCompatActivity() {
         }
     }
 
+    // Add welcome text after the connection to the server
     private fun updateUiWithUser(model: ConnectedUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
                 applicationContext,
                 "$welcome $displayName",
@@ -118,9 +121,6 @@ class ConnectionActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
 }
 
 /**
