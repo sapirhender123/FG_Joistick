@@ -92,6 +92,9 @@ class JoystickActivity : AppCompatActivity() {
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 joystickView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                // Position in center according to calculated margins
+                joystickView.x = ((rightMargin - leftMargin) / 2.0f) + leftMargin
+                joystickView.y = ((bottomMargin - topMargin) / 2.0f) + topMargin
                 joystickY = joystickView.y
                 joystickX = joystickView.x
             }
