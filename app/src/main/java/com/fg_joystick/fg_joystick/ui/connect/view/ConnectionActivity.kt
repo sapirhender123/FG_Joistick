@@ -65,7 +65,6 @@ class ConnectionActivity : AppCompatActivity() {
                 //Complete and destroy connect activity once successful
                 finish()
             }
-
         })
 
         ip.afterTextChanged {
