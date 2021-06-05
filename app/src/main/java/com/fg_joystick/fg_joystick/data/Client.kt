@@ -10,8 +10,7 @@ import java.util.*
 import java.util.concurrent.*
 
 /**
- * Class that handles authentication w/ connect credentials and retrieves user information.
- * Kotlin’s representation of a Singleton class requires the object keyword only.
+ * Create a socket and connect to flight-gear. Send commands from user to flight-gear
  */
 object Client {
 
@@ -31,22 +30,27 @@ object Client {
         Log.d("Client",  "Model invoked")
     }
 
+    // connect to flight-gear
     fun connect(ip: String, portStr: String): Result<ConnectedUser> {
 
+        // create thread to open the socket
         mainThread = Executors.newSingleThreadExecutor()
 
         return mainThread!!.submit(Callable {
             return@Callable try {
+                // open the socket
                 socket = Socket()
                 socket!!.connect(InetSocketAddress(ip, portStr.toInt()), 1000)
                 writer = PrintWriter(socket!!.getOutputStream())
 
+                // open thread pool to write commands to flight-gear
                 threadPool = Executors.newFixedThreadPool(5)
                 threadPool!!.submit{
                     // TODO : no busy waiting
                     while (!stop) {
                         synchronized(this)
                         {
+                            // wait for a new message and send to flight-gear
                             if (message != null) {
                                 writer!!.printf(message!!)
                                 writer!!.flush()
@@ -56,17 +60,20 @@ object Client {
 
                     }
                 }
+                // connection succeeded
                 val user = ConnectedUser(
                     UUID.randomUUID().toString(),
                     "Connecting to %s:%s".format(ip, portStr)
                 )
                 Result.Success(user)
             } catch (e: Throwable) {
+                // connecting failed
                 Result.Error(IOException("Error logging in", e))
             }
         }).get()
     }
 
+    // send massage to flight-gear
     fun sendMessage(attr: String, value: Float) {
         val path = when (attr) {
             "throttle" -> "engines/current-engine/throttle"
@@ -78,6 +85,7 @@ object Client {
         }
     }
 
+    // disconnect from flight gear and stop thread pool
     fun disconnect() {
         synchronized (this) {
             stop = true
