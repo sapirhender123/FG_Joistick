@@ -1,6 +1,7 @@
 package com.fg_joystick.fg_joystick.ui.connect.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -77,8 +78,8 @@ class JoystickActivity : AppCompatActivity() {
                 // Update the viewModel
                 // Clamp values to range [-1, 1]
                 (joystick.onChange as OnJoystickChange).onChange(
-                    (joystickY - view.y) / ((bottomMargin - topMargin) / 2.0f),
-                    (view.x - joystickX) / ((rightMargin - leftMargin) / 2.0f)
+                    (view.x - joystickX) / ((rightMargin - leftMargin) / 2.0f),
+                    (joystickY - view.y) / ((bottomMargin - topMargin) / 2.0f)
                 )
             }
 
@@ -139,5 +140,11 @@ class JoystickActivity : AppCompatActivity() {
                 joystickViewModel.setRudder((progress - 100) / 100.0f)
             }
         })
+
+        Disconnect.setOnClickListener {
+            joystickViewModel.disconnect()
+            val switchActivityIntent = Intent(this, ConnectionActivity::class.java)
+            startActivity(switchActivityIntent)
+        }
     }
 }
