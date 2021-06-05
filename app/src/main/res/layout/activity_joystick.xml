@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.928" />
 
     <SeekBar
-        android:id="@+id/seekBarThrottle"
+        android:id="@+id/seekBarRudder"
         android:layout_width="283dp"
         android:layout_height="21dp"
         app:layout_constraintBottom_toTopOf="@+id/Disconnect"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.934"/>
 
     <SeekBar
-        android:id="@+id/seekBarRudder"
+        android:id="@+id/seekBarThrottle"
         android:layout_width="271dp"
         android:layout_height="21dp"
         android:layout_marginEnd="220dp"
@@ -54,10 +54,10 @@
         app:layout_constraintVertical_bias="0.433" />
 
     <TextView
-        android:id="@+id/Rudder"
+        android:id="@+id/Throttle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/rudder"
+        android:text="@string/throttle"
         android:textColor="#E1A2E1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,10 +67,10 @@
         app:layout_constraintVertical_bias="0.699" />
 
     <TextView
-        android:id="@+id/Throttle"
+        android:id="@+id/Rudder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/throttle"
+        android:text="@string/rudder"
         android:textColor="#E1A2E1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
