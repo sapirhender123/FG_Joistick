@@ -1,16 +1,19 @@
 package com.fg_joystick.fg_joystick.data
 
+import android.util.Log
 import com.fg_joystick.fg_joystick.data.model.ConnectedUser
 import java.io.IOException
 import java.io.PrintWriter
 import java.net.InetSocketAddress
 import java.net.Socket
+import java.util.*
 import java.util.concurrent.*
 
 /**
  * Class that handles authentication w/ connect credentials and retrieves user information.
+ * Kotlin’s representation of a Singleton class requires the object keyword only.
  */
-class Client {
+object Client {
 
     @Volatile
     private var socket: Socket? = null
@@ -24,51 +27,54 @@ class Client {
     private var mainThread: ExecutorService? = null
     private var threadPool: ExecutorService? = null
 
+    init {
+        Log.d("Client",  "Model invoked")
+    }
 
     fun connect(ip: String, portStr: String): Result<ConnectedUser> {
 
         mainThread = Executors.newSingleThreadExecutor()
-        val future : Future<Result<ConnectedUser>>? = mainThread!!.submit(Callable {
-            return@Callable  try {
+
+        return mainThread!!.submit(Callable {
+            return@Callable try {
                 socket = Socket()
                 socket!!.connect(InetSocketAddress(ip, portStr.toInt()), 1000)
                 writer = PrintWriter(socket!!.getOutputStream())
 
                 threadPool = Executors.newFixedThreadPool(5)
-                threadPool!!.submit(Runnable {
+                threadPool!!.submit{
                     // TODO : no busy waiting
-                        while (!stop)
+                    while (!stop) {
+                        synchronized(this)
                         {
-                            synchronized (this)
-                            {
-                                if (message != null) {
-                                    writer!!.printf(message)
-                                    message = null
-                                }
+                            if (message != null) {
+                                writer!!.printf(message!!)
+                                writer!!.flush()
+                                message = null
                             }
-
                         }
-                })
+
+                    }
+                }
                 val user = ConnectedUser(
-                    java.util.UUID.randomUUID().toString(),
+                    UUID.randomUUID().toString(),
                     "Connecting to %s:%s".format(ip, portStr)
                 )
                 Result.Success(user)
-            } catch (e: Throwable){
+            } catch (e: Throwable) {
                 Result.Error(IOException("Error logging in", e))
             }
-        })
-
-        return future!!.get()
+        }).get()
     }
 
     fun sendMessage(attr: String, value: Float) {
-        var path : String = attr
-        if (attr == "throttle") {
-            path = "current-engine/$attr"
+        val path = when (attr) {
+            "throttle" -> "engines/current-engine/throttle"
+            else -> "flight/$attr"
         }
+
         synchronized(this) {
-            message = "set /controls/flight/$path ${value.toString()}"
+            message = "set /controls/$path $value\r\n"
         }
     }
 
