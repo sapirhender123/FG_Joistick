@@ -61,9 +61,11 @@ class JoystickActivity : AppCompatActivity() {
             display.getMetrics(metrics)
         }
 
+        // Calculate margins
         bottomMargin = (metrics.heightPixels - margin * 1.6f) / 2
         rightMargin = (metrics.widthPixels - margin / 4) / 2
 
+        // Assign touch listener
         val touchListener = View.OnTouchListener(function = { view, motionEvent ->
             if (motionEvent.action == MotionEvent.ACTION_MOVE) {
                 view.y = topMargin.coerceAtLeast(motionEvent.rawY - view.height)
