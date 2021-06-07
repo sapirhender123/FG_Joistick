@@ -96,5 +96,6 @@ object Client {
         threadPool!!.awaitTermination(30, TimeUnit.SECONDS)
         mainThread!!.shutdown()
         mainThread!!.awaitTermination(30, TimeUnit.SECONDS)
+        stop = false
     }
 }
